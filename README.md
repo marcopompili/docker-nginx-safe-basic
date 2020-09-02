@@ -1,2 +1,7 @@
 # docker-nginx-safe-basic
-Nginx image with basic security teaks.
+Nginx proxy image with basic security teaks.
+
+## Resources
+
+* [Seven web server HTTP headers that Improve Web Application Security for Free](http://recxltd.blogspot.com/2012/03/seven-web-server-http-headers-that.html).
+* [Security Headers](https://securityheaders.com/)
