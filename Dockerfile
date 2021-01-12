@@ -45,7 +45,19 @@ RUN CONFARGS=$(nginx -V 2>&1 | sed -n -e 's/^.*arguments: //p') && \
 # Production container starts here
 FROM nginx:${VERSION}
 
+RUN apk add --no-cache --update bind-tools
+
 COPY --from=builder /usr/src/nginx/nginx-${NGINX_VERSION}/objs/*_module.so /etc/nginx/modules/
 
-# Validate the config
-# RUN nginx -t
+RUN wget https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/install-ngxblocker -O /usr/local/bin/install-ngxblocker; \
+    chmod +x /usr/local/bin/install-ngxblocker; mkdir -p /etc/nginx/sites-available
+
+COPY default.conf /etc/nginx/sites-available/
+
+RUN  /usr/local/bin/install-ngxblocker -x
+
+EXPOSE 443
+
+COPY start.sh /
+
+CMD ["/start.sh"]
