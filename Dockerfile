@@ -52,7 +52,9 @@ COPY --from=builder /usr/src/nginx/nginx-${NGINX_VERSION}/objs/*_module.so /etc/
 RUN wget https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/install-ngxblocker -O /usr/local/bin/install-ngxblocker; \
     chmod +x /usr/local/bin/install-ngxblocker; mkdir -p /etc/nginx/sites-available
 
-COPY default.conf /etc/nginx/sites-available/
+COPY default.conf /etc/nginx/sites-available
+
+VOLUME ["/etc/nginx/sites-available"]
 
 RUN  /usr/local/bin/install-ngxblocker -x
 
