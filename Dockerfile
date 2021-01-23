@@ -50,9 +50,7 @@ RUN apk add --no-cache --update bind-tools dumb-init
 COPY --from=builder /usr/src/nginx/nginx-${NGINX_VERSION}/objs/*_module.so /etc/nginx/modules/
 
 RUN wget https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/install-ngxblocker -O /usr/local/bin/install-ngxblocker; \
-    chmod +x /usr/local/bin/install-ngxblocker; mkdir -p /etc/nginx/sites-available
-
-COPY default.conf /etc/nginx/sites-available
+    chmod +x /usr/local/bin/install-ngxblocker; mkdir -p /etc/nginx/sites-available; mv /etc/nginx/conf.d/default.conf /etc/nginx/sites-available
 
 VOLUME ["/etc/nginx/sites-available"]
 
