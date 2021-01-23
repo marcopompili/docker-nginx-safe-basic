@@ -1,7 +1,7 @@
 ARG VERSION=stable-alpine
 FROM nginx:${VERSION} as builder
 
-LABEL maintainer="Marco Pompili"
+LABEL maintainer="emarcs"
 LABEL email="docker@mg.odd.red"
 
 ENV MORE_HEADERS_VERSION=0.33
@@ -45,7 +45,7 @@ RUN CONFARGS=$(nginx -V 2>&1 | sed -n -e 's/^.*arguments: //p') && \
 # Production container starts here
 FROM nginx:${VERSION}
 
-RUN apk add --no-cache --update bind-tools
+RUN apk add --no-cache --update bind-tools dumb-init
 
 COPY --from=builder /usr/src/nginx/nginx-${NGINX_VERSION}/objs/*_module.so /etc/nginx/modules/
 
@@ -58,6 +58,10 @@ RUN  /usr/local/bin/install-ngxblocker -x
 
 EXPOSE 443
 
+COPY config.sh /
 COPY start.sh /
 
-CMD ["/start.sh"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+
+CMD ["sh", "-c", "/config.sh && /start.sh"]
+
