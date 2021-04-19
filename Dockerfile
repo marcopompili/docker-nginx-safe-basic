@@ -45,7 +45,7 @@ RUN CONFARGS=$(nginx -V 2>&1 | sed -n -e 's/^.*arguments: //p') && \
 # Production container starts here
 FROM nginx:${VERSION}
 
-RUN apk add --no-cache --update bind-tools dumb-init
+RUN apk add --no-cache --update bind-tools logrotate dumb-init
 
 COPY --from=builder /usr/src/nginx/nginx-${NGINX_VERSION}/objs/*_module.so /etc/nginx/modules/
 
