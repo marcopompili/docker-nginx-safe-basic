@@ -4,7 +4,7 @@ FROM nginx:${VERSION} as builder
 LABEL maintainer="emarcs"
 LABEL email="docker@mg.odd.red"
 
-ENV MORE_HEADERS_VERSION=0.33
+ENV MORE_HEADERS_VERSION=0.35
 ENV MORE_HEADERS_REPO=openresty/headers-more-nginx-module
 
 # For latest build deps, see https://github.com/nginxinc/docker-nginx/blob/master/mainline/alpine/Dockerfile
