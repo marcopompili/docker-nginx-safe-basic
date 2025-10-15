@@ -1,5 +1,5 @@
 # docker-nginx-safe-basic
-Nginx proxy image with basic security teaks.
+Nginx proxy image with basic security tweaks.
 
 ## Resources
 
